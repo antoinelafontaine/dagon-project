@@ -1,0 +1,11 @@
+---
+
+project_name: ''
+project_root: 'docroot'
+project_nginx_site_template: ''
+project_type: ''
+project_type_version: ''
+project_drush_aliases_template: ''
+project_php_version: ''
+project_database: []
+project_repo: []
