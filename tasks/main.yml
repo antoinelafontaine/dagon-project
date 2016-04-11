@@ -7,9 +7,9 @@
   always_run: true
 
 - name: Clone the {{ project_name }} project repo.
-  git: 
+  git:
     repo: "{{ item.repo }}"
-    dest: ~/src/{{ project_name }}{{ item.dest }}
+    dest: "{{ project_local_base_path }}/{{ project_name }}{{ item.dest }}"
     force: no
     update: no
   when: project_repo
@@ -28,39 +28,39 @@
   when: project_nginx_site_template
 
 - name: Drupal site.dev.
-  file: 
-    path: "~/src/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev"
+  file:
+    path: "{{ project_local_base_path }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev"
     state: directory
   when: project_type == "drupal"
 
 - name: Drupal site settings.php.
   template:
     src: "drupal-template--settings.j2"
-    dest: "~/src/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev/settings.php"
-  when: 
+    dest: "{{ project_local_base_path }}//{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev/settings.php"
+  when:
     - project_type == "drupal"
     - project_type_version != "d8"
 
 - name: Drupal site settings.php.
   template:
     src: "drupal-template--d8-settings.j2"
-    dest: "~/src/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev/settings.php"
-  when: 
+    dest: "{{ project_local_base_path }}//{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev/settings.php"
+  when:
     - project_type == "drupal"
     - project_type_version == "d8"
 
 - name: Drupal site services.yml.
   template:
     src: "drupal-template--d8-services.j2"
-    dest: "~/src/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev/services.yml"
-  when: 
+    dest: "{{ project_local_base_path }}//{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev/services.yml"
+  when:
     - project_type == "drupal"
     - project_type_version == "d8"
 
 - name: Drupal site settings.php.
   copy:
     src: 'files/info.php'
-    dest: "~/src/{{ project_name }}/{{ project_root }}/info.php"
+    dest: "{{ project_local_base_path }}//{{ project_name }}/{{ project_root }}/info.php"
   when: project_type == "drupal"
 
 - name: Create drush aliases.
@@ -68,6 +68,14 @@
     src: "{{ project_drush_aliases_template }}.j2"
     dest: "~/.drush/{{ project_name }}.aliases.drushrc.php"
   when: project_drush_aliases_template
+
+- name: Add drush aliases extras.
+  blockinfile:
+    dest: "~/.drush/{{ project_name }}.aliases.drushrc.php"
+    block: "{{ item }}"
+    marker: "// {mark} project specific alias --"
+  with_items: "{{ project_drush_aliases_extra }}"
+  when: project_drush_aliases_extra
 
 - name: Install the Python MySQLB module
   pip:
