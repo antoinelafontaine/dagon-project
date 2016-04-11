@@ -1,7 +1,7 @@
 server {
   listen 80;
   server_name {{ project_name }}.dev;
-  root /Users/{{ project_username.stdout }}/src/{{ project_name }}/{{ project_root }};
+  root {{ project_local_base_path }}'/{{ project_name }}/{{ project_root }};
   access_log /usr/local/etc/nginx/logs/{{ project_name }}.access.log main;
 
   client_max_body_size 50M;
@@ -53,10 +53,10 @@ server {
   }
 
   # Fighting with Styles? This little gem is amazing.
-  
+
   # This is for D7 and D8
   location ~ ^/sites/.*/files/styles/ {
-  
+
     try_files $uri @rewrite;
   }
 
