@@ -18,12 +18,4 @@ $settings['update_free_access'] = FALSE;
 $settings['file_chmod_directory'] = 0775;
 $settings['file_chmod_file'] = 0664;
 
-# $config['system.site']['name'] = 'My Drupal site';
-# $config['system.theme']['default'] = 'stark';
-# $config['user.settings']['anonymous'] = 'Visitor';
-
 $settings['container_yamls'][] = __DIR__ . '/services.yml';
-
-if (file_exists(__DIR__ . '/settings.local.php')) {
-  include __DIR__ . '/settings.local.php';
-}

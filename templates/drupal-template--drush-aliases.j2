@@ -1,7 +1,7 @@
 <?php
 
 $aliases['local'] = array(
-  'root' => '{{ project_local_base_path }}/{{ project_name }}/{{ project_root }}',
+  'root' => '{{ project_local_base_path | expanduser }}/{{ project_name }}/{{ project_root }}',
   'site' => '{{ project_name }}.dev',
   'uri' => '{{ project_name }}.dev',
 );

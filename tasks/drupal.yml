@@ -1,0 +1,20 @@
+- name: "Drupal - local development [sites/{{ project_name }}.dev]"
+  file:
+    path: "{{ project_local_base_path }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev"
+    state: directory
+    mode: u=rwx,g=rx,o=rx
+  when: project_type == "drupal"
+
+- name: "{{ project_name }} - Create drush aliases"
+  template:
+    src: "{{ project_drush_aliases_template }}.j2"
+    dest: "~/.drush/{{ project_name }}.aliases.drushrc.php"
+  when: project_drush_aliases_template
+
+- name: "{{ project_name }} - Add drush aliases extras"
+  blockinfile:
+    dest: "~/.drush/{{ project_name }}.aliases.drushrc.php"
+    block: "{{ item }}"
+    marker: "// {mark} project specific alias --"
+  with_items: "{{ project_drush_aliases_extra }}"
+  when: project_drush_aliases_extra
