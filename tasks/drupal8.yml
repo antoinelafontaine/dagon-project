@@ -2,6 +2,7 @@
   template:
     src: "drupal-template--d8--settings.j2"
     dest: "{{ project_local_base_path }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev/settings.php"
+    force: no;
   when:
     - project_type == "drupal"
     - project_type_version == "d8"
