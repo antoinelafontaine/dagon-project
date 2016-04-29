@@ -6,7 +6,16 @@
     dest: "{{ project_local_base_path }}/{{ project_name }}{{ item.dest }}"
     force: no
     update: no
-  when: project_repo
+  when: project_repo and not project_group
+  with_items: "{{ project_repo }}"
+
+- name: "{{ project_name }} - Clone the project repo (in a group)"
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}{{ item.dest }}"
+    force: no
+    update: no
+  when: project_repo and project_group
   with_items: "{{ project_repo }}"
 
 - name: "{{ project_name }} - Create nginx site"
