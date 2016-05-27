@@ -27,6 +27,6 @@
   template:
     src: "drupal-template--d8--drupal-console-site.j2"
     dest: "~/.console/sites/{{ project_name }}.yml"
-    when:
-      - project_type == "drupal"
-      - project_type_version == "d8"
+  when:
+    - project_type == "drupal"
+    - project_type_version == "d8"
