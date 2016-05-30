@@ -7,6 +7,15 @@
     - project_type == "drupal"
     - project_type_version == "d8"
 
+- name: "Drupal 8 - {{ project_name }} - local development [sites/default/services.yml]"
+  template:
+    src: "drupal-template--d8--services.j2"
+    dest: "{{ project_local_base_path }}/{{ project_name }}/{{ project_root }}/sites/default/services.yml"
+    force: no
+  when:
+    - project_type == "drupal"
+    - project_type_version == "d8"
+
 - name: "[Drupal 8 - {{ project_name }} - Drupal console site"
   template:
     src: "drupal-template--d8--drupal-console-site.j2"
