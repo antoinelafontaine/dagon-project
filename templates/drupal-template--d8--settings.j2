@@ -18,6 +18,9 @@ $config['system.cron']['threshold']['autorun'] = 0;
 $config['system.file']['path']['temporary'] = '/tmp';
 $config['system.file']['temporary_maximum_age'] = 21600;
 
+$settings['cache']['bins']['render'] = 'cache.backend.null';
+$settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
+
 $settings['extension_discovery_scan_tests'] = TRUE;
 $settings['file_public_path'] = 'sites/default/files';
 $settings['file_private_path'] = 'sites/default/files/private';
