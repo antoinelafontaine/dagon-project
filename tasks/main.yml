@@ -40,7 +40,13 @@
   copy:
     src: 'files/info.php'
     dest: "{{ project_local_base_path }}/{{ project_name }}/{{ project_root }}/info.php"
-  when: (project_type == "drupal") or (project_type == "php")
+  when: (project_type == "drupal") or (project_type == "php") and (not project_group)
+
+- name: "{{ project_name }} - Add a copy of info.php to a project with a group"
+  copy:
+    src: 'files/info.php'
+    dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/info.php"
+  when: (project_type == "drupal") or (project_type == "php") and (project_group != '')
 
 - name: "{{ project_name }} - Install the Python MySQLB module"
   pip:
