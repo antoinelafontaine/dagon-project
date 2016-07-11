@@ -1,10 +1,10 @@
 ---
 
-- name: "{{ project_name }} - Create the group folder"
+- name: "{{ project_group }}/{{ project_name }} - Create the group folder"
   file:
     path: "{{ project_local_base_path }}/{{ project_group }}"
     state: directory
-  when: project_group
+  when: project_group != ''
 
 - name: "{{ project_name }} - Clone the project repo"
   git:
