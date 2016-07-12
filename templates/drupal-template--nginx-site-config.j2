@@ -1,7 +1,7 @@
 server {
   listen 80;
   server_name {{ project_name }}.dev;
-  root {{ project_local_base_path | expanduser }}/{{ project_name }}/{{ project_root }};
+  root {{ project_local_base_path | expanduser }}/{{ project_group }}/{{ project_name }}/{{ project_root }};
   access_log /usr/local/etc/nginx/logs/{{ project_name }}.access.log main;
 
   client_max_body_size 50M;
