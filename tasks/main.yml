@@ -4,25 +4,16 @@
   file:
     path: "{{ project_local_base_path }}/{{ project_group }}"
     state: directory
-  when: project_group != ''
 
 - name: "{{ project_name }} - Clone the project repo"
-  git:
-    repo: "{{ item.repo }}"
-    dest: "{{ project_local_base_path }}/{{ project_name }}{{ item.dest }}"
-    force: no
-    update: no
-  when: project_repo and (not project_group)
-  with_items: "{{ project_repo }}"
-
-- name: "{{ project_name }} - Clone the project repo in a group folder"
   git:
     repo: "{{ item.repo }}"
     dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}{{ item.dest }}"
     force: no
     update: no
-  when: project_repo and project_group
+  when: project_repo
   with_items: "{{ project_repo }}"
+
 
 - name: "{{ project_name }} - Create nginx site"
   template:
@@ -39,14 +30,8 @@
 - name: "{{ project_name }} - Add a copy of info.php"
   copy:
     src: 'files/info.php'
-    dest: "{{ project_local_base_path }}/{{ project_name }}/{{ project_root }}/info.php"
-  when: (project_type == "drupal") or (project_type == "php") and (not project_group)
-
-- name: "{{ project_name }} - Add a copy of info.php to a project with a group"
-  copy:
-    src: 'files/info.php'
     dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/info.php"
-  when: (project_type == "drupal") or (project_type == "php") and (project_group != '')
+  when: (project_type == "drupal") or (project_type == "php")
 
 - name: "{{ project_name }} - Install the Python MySQLB module"
   pip:

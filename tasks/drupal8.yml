@@ -1,6 +1,6 @@
 - name: "Drupal 8 - {{ project_name }} - local development [sites/default] permissions"
   file:
-    path: "{{ project_local_base_path }}/{{ project_name }}/{{ project_root }}/sites/default"
+    path: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/default"
     mode: u=rwx,g=rwx,o=rx
     force: no
   when:
@@ -10,7 +10,7 @@
 - name: "Drupal 8 - {{ project_name }} - local development [sites/default/settings.php]"
   template:
     src: "drupal-template--d8--settings.j2"
-    dest: "{{ project_local_base_path }}/{{ project_name }}/{{ project_root }}/sites/default/settings.php"
+    dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/default/settings.php"
     mode: u=rw,g=r,o=r
     force: no
   when:
@@ -20,7 +20,7 @@
 - name: "Drupal 8 - {{ project_name }} - local development [sites/default/services.yml]"
   template:
     src: "drupal-template--d8--services.j2"
-    dest: "{{ project_local_base_path }}/{{ project_name }}/{{ project_root }}/sites/default/services.yml"
+    dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/default/services.yml"
     mode: u=rw,g=r,o=r
     force: no
   when:

@@ -2,7 +2,7 @@
 
 project_local_base_path: "{{ lookup('ini', 'project_base_path section=project file=~/.dagonconfig') }}"
 project_name: ''
-project_group: ''
+project_group: 'other'
 project_root: 'docroot'
 project_nginx_site_template: ''
 project_type: ''
