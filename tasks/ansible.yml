@@ -1,7 +1,0 @@
----
-
-- name: "{{ project_group }}/{{ project_name }} - Create roles-dev folder"
-  file:
-    path: /usr/local/dagon/roles-dev
-    state: directory
-  when: project_type == "ansible"

@@ -5,6 +5,13 @@
     path: "{{ project_local_base_path }}/{{ project_group }}"
     state: directory
 
+- name: "{{ project_name }} - Create folder"
+  file:
+    path: "{{ item.path }}"
+    state: directory
+  with_items: "{{ project_folder }}"
+  when: project_folder
+
 - name: "{{ project_name }} - Clone repository"
   git:
     repo: "{{ item.repo }}"
@@ -52,7 +59,6 @@
 - include: drupal.yml
 - include: drupal7.yml
 - include: drupal8.yml
-- include: ansible.yml
 
 # when everything else is in place, add symlinks if any
 

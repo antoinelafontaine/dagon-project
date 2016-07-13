@@ -12,4 +12,5 @@ project_drush_aliases_custom: []
 project_php_version: ''
 project_database: []
 project_repo: []
+project_folder: []
 project_symlink: []
