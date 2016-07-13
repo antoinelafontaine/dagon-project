@@ -5,7 +5,7 @@
     path: "{{ project_local_base_path }}/{{ project_group }}"
     state: directory
 
-- name: "{{ project_name }} - Clone the project repo"
+- name: "{{ project_name }} - Clone repository"
   git:
     repo: "{{ item.repo }}"
     dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}{{ item.dest }}"
@@ -15,7 +15,7 @@
   with_items: "{{ project_repo }}"
 
 
-- name: "{{ project_name }} - Create nginx site"
+- name: "{{ project_name }} - Create nginx site config"
   template:
     src: "{{ project_nginx_site_template }}.j2"
     dest: "/usr/local/etc/nginx/sites/{{ project_name }}.dev"
@@ -39,7 +39,7 @@
     state: present
   become: yes
 
-- name: "{{ project_name }} - Database table"
+- name: "{{ project_name }} - Create database"
   mysql_db:
     name: "{{ item.name }}"
     login_user: root
@@ -47,6 +47,19 @@
   with_items: "{{ project_database }}"
   when: project_database
 
+# project type specific tasks
+
 - include: drupal.yml
 - include: drupal7.yml
 - include: drupal8.yml
+- include: ansible.yml
+
+# when everything else is in place, add symlinks if any
+
+- name: "{{ project_name }} - Create symlinks"
+  file:
+    src: "{{ project_local_base_path }}/{{ item.origin }}"
+    dest: "{{ item.link }}"
+    state: link
+  with_items: "{{ project_symlink }}"
+  when: project_symlink

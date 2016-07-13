@@ -1,3 +1,5 @@
+---
+
 - name: "Drupal 7 - local development [sites/{{ project_name }}.dev/settings.php]"
   template:
     src: "drupal-template--d7--settings.j2"

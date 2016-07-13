@@ -1,3 +1,5 @@
+---
+
 - name: "Drupal 8 - {{ project_name }} - local development [sites/default] permissions"
   file:
     path: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/default"

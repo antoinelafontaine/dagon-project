@@ -1,3 +1,5 @@
+---
+
 - name: "Drupal - local development [sites/{{ project_name }}.dev]"
   file:
     path: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev"
@@ -13,10 +15,10 @@
     dest: "~/.drush/{{ project_name }}.aliases.drushrc.php"
   when: project_drush_aliases_template
 
-- name: "{{ project_name }} - Add drush aliases extras"
+- name: "{{ project_name }} - Add drush custom aliases"
   blockinfile:
     dest: "~/.drush/{{ project_name }}.aliases.drushrc.php"
     block: "{{ item }}"
-    marker: "// {mark} project specific alias --"
-  with_items: "{{ project_drush_aliases_extra }}"
-  when: project_drush_aliases_extra
+    marker: "// {mark} project specific aliases --"
+  with_items: "{{ project_drush_aliases_custom }}"
+  when: project_drush_aliases_custom
