@@ -13,7 +13,7 @@
   template:
     src: "drupal-template--d8--settings.j2"
     dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev/settings.php"
-    mode: u=rw,g=r,o=r
+    mode: u=rw,g=rw,o=r
     force: no
   when:
     - project_type == "drupal"
@@ -23,7 +23,7 @@
   template:
     src: "drupal-template--d8--services.j2"
     dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev/services.yml"
-    mode: u=rw,g=r,o=r
+    mode: u=rw,g=rw,o=r
     force: no
   when:
     - project_type == "drupal"
@@ -33,7 +33,7 @@
   template:
     src: "drupal-template--d8--sites.j2"
     dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/sites.php"
-    mode: u=rw,g=r,o=r
+    mode: u=rw,g=rw,o=r
     force: no
   when:
     - project_type == "drupal"
