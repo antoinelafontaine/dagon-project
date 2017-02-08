@@ -27,7 +27,6 @@
     src: "{{ project_nginx_site_template }}.j2"
     dest: "/usr/local/etc/nginx/sites/{{ project_name }}.dev"
   when: project_nginx_site_template is defined
-  notify: Reload nginx sites config.
 
 - name: "{{ project_name }} - Reload nginx sites config"
   shell: nginx -s reload
