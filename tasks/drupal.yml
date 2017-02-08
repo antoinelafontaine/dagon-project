@@ -12,7 +12,7 @@
   template:
     src: "{{ project_drush_aliases_template }}.j2"
     dest: "~/.drush/{{ project_name }}.aliases.drushrc.php"
-  when: project_drush_aliases_template
+  when: project_drush_aliases_template is defined
 
 - name: "{{ project_name }} - Add drush custom aliases"
   blockinfile:
@@ -20,4 +20,4 @@
     block: "{{ item }}"
     marker: "// {mark} project specific aliases --"
   with_items: "{{ project_drush_aliases_custom }}"
-  when: project_drush_aliases_custom
+  when: project_drush_aliases_custom is defined
