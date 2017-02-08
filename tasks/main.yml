@@ -10,7 +10,7 @@
     path: "{{ item.path }}"
     state: directory
   with_items: "{{ project_folder }}"
-  when: project_folder
+  when: project_folder is defined
 
 - name: "{{ project_name }} - Clone repository"
   git:
@@ -18,7 +18,7 @@
     dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}{{ item.dest }}"
     force: no
     update: no
-  when: project_repo
+  when: project_repo is defined
   with_items: "{{ project_repo }}"
 
 
@@ -26,13 +26,13 @@
   template:
     src: "{{ project_nginx_site_template }}.j2"
     dest: "/usr/local/etc/nginx/sites/{{ project_name }}.dev"
-  when: project_nginx_site_template
+  when: project_nginx_site_template is defined
   notify: Reload nginx sites config.
 
 - name: "{{ project_name }} - Reload nginx sites config"
   shell: nginx -s reload
   become: yes
-  when: project_nginx_site_template
+  when: project_nginx_site_template is defined
 
 - name: "{{ project_name }} - Add a copy of info.php"
   copy:
@@ -52,7 +52,7 @@
     login_user: root
     state: present
   with_items: "{{ project_database }}"
-  when: project_database
+  when: project_database is defined
 
 # project type specific tasks
 
@@ -68,4 +68,4 @@
     dest: "{{ item.link }}"
     state: link
   with_items: "{{ project_symlink }}"
-  when: project_symlink
+  when: project_symlink is defined
