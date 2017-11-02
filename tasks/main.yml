@@ -28,11 +28,6 @@
     dest: "/usr/local/etc/nginx/sites/{{ project_name }}.dev"
   when: project_nginx_site_template is defined
 
-- name: "{{ project_name }} - Reload nginx sites config"
-  shell: nginx -s reload
-  become: yes
-  when: project_nginx_site_template is defined
-
 - name: "{{ project_name }} - Add a copy of info.php"
   copy:
     src: 'files/info.php'
@@ -71,3 +66,8 @@
     state: link
   with_items: "{{ project_symlink }}"
   when: project_symlink is defined
+
+- name: "{{ project_name }} - Reload nginx sites config"
+  shell: nginx -s reload
+  become: yes
+  when: project_nginx_site_template is defined
