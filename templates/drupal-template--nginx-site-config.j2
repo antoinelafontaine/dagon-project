@@ -75,3 +75,84 @@ server {
   }
 
 }
+
+server {
+  listen 443;
+  ssl on;
+  ssl_certificate /usr/local/ssl/certs/{{ project_name }}SelfSignedSSL.crt;
+  ssl_certificate_key /usr/local/ssl/private/{{ project_name }}SelfSignedSSL.key;
+  server_name {{ project_name }}.dev;
+
+  root {{ project_local_base_path | expanduser }}/{{ project_group }}/{{ project_name }}/{{ project_root }};
+  access_log /usr/local/etc/nginx/logs/{{ project_name }}.access.log main;
+
+  client_max_body_size 50M;
+
+  error_page 500 502 503 504 /50x.html;
+
+  location = /favicon.ico {
+    log_not_found off;
+    access_log off;
+  }
+
+  location = /robots.txt {
+    allow all;
+    log_not_found off;
+    access_log off;
+  }
+
+  location ~* \.(txt|log)$ {
+    allow 192.168.0.0/16;
+    deny all;
+  }
+
+  location ~ \..*/.*\.php$ {
+    return 403;
+  }
+
+  # No no for private
+  location ~ ^/sites/.*/private/ {
+    return 403;
+  }
+
+  location / {
+    # This is cool because no php is touched for static content
+    try_files $uri @rewrite;
+  }
+
+  location @rewrite {
+    rewrite ^ /index.php;
+  }
+
+  location ~* ^/update.php {
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_index update.php;
+    include fastcgi_params;
+    fastcgi_param  SCRIPT_FILENAME $document_root/update.php;
+    fastcgi_param  SCRIPT_NAME /update.php;
+    fastcgi_pass unix:/usr/local/etc/php/sockets/php70;
+  }
+
+  location ~ \.php$ {
+    fastcgi_read_timeout 1000;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    try_files $uri =404; #NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $request_filename;
+    fastcgi_intercept_errors on;
+    fastcgi_pass unix:/usr/local/etc/php/sockets/{{ project_php_version }};
+  }
+
+  # Fighting with Styles? This little gem is amazing.
+
+  # This is for D7 and D8
+  location ~ ^/sites/.*/files/styles/ {
+
+    try_files $uri @rewrite;
+  }
+
+  location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+    expires max;
+    log_not_found off;
+  }
+}
