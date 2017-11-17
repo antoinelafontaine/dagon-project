@@ -21,19 +21,3 @@
     marker: "// {mark} project specific aliases --"
   with_items: "{{ project_drush_aliases_custom }}"
   when: project_drush_aliases_custom is defined
-
-- name: "{{ project_name }} - Create SSL Cert"
-  shell:
-    cmd: |
-      openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-      -keyout /usr/local/ssl/private/{{ project_name }}SelfSignedSSL.key \
-      -out /usr/local/ssl/certs/{{ project_name }}SelfSignedSSL.crt <<EOF
-      CA
-      Canada
-
-      Project Name: {{ project_name }}
-      Development
-      {{ project_name }}.dev
-
-      EOF
-  become: yes
