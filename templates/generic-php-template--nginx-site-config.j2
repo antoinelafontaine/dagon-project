@@ -1,6 +1,6 @@
 server {
   listen 80;
-  server_name {{ project_name }}.dev;
+  server_name {{ project_name }}.localhost;
   root {{ project_local_base_path | expanduser }}/{{ project_group }}/{{ project_name }}/{{ project_root }};
   access_log /usr/local/etc/nginx/logs/partnerplan.access.log main;
 

@@ -1,28 +1,28 @@
 ---
 
-- name: "Drupal 8 - {{ project_name }} - local development [sites/{{ project_name }}.dev] permissions"
+- name: "Drupal 8 - {{ project_name }} - local development [sites/{{ project_name }}.localhost] permissions"
   file:
-    path: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev"
+    path: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.localhost"
     mode: u=rwx,g=rwx,o=rx
     force: no
   when:
     - project_type == "drupal"
     - project_type_version == "d8"
 
-- name: "Drupal 8 - {{ project_name }} - local development [sites/{{ project_name }}.dev/settings.php]"
+- name: "Drupal 8 - {{ project_name }} - local development [sites/{{ project_name }}.localhost/settings.php]"
   template:
     src: "drupal-template--d8--settings.j2"
-    dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev/settings.php"
+    dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.localhost/settings.php"
     mode: u=rw,g=rw,o=r
     force: no
   when:
     - project_type == "drupal"
     - project_type_version == "d8"
 
-- name: "Drupal 8 - {{ project_name }} - local development [sites/{{ project_name }}.dev/services.yml]"
+- name: "Drupal 8 - {{ project_name }} - local development [sites/{{ project_name }}.localhost/services.yml]"
   template:
     src: "drupal-template--d8--services.j2"
-    dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.dev/services.yml"
+    dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.localhost/services.yml"
     mode: u=rw,g=rw,o=r
     force: no
   when:
