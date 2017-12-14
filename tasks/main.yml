@@ -24,7 +24,7 @@
 - name: "{{ project_name }} - Create nginx site config"
   template:
     src: "{{ project_nginx_site_template }}.j2"
-    dest: "/usr/local/etc/nginx/sites/{{ project_name }}.localhost"
+    dest: "/usr/local/etc/nginx/sites/{{ project_name }}.local"
   when: project_nginx_site_template is defined
 
 - name: "{{ project_name }} - Add a copy of info.php"
@@ -44,7 +44,7 @@
 
       Project Name: {{ project_name }}
       Development
-      {{ project_name }}.dev
+      {{ project_name }}.local
 
       EOF
   become: yes

@@ -1,8 +1,8 @@
 ---
 
-- name: "Drupal - local development [sites/{{ project_name }}.dev]"
+- name: "Drupal - local development [sites/{{ project_name }}.local]"
   file:
-    path: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.localhost"
+    path: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.local"
     state: directory
     mode: u=rwx,g=rx,o=rx
   when:

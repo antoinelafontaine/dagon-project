@@ -1,9 +1,9 @@
 ---
 
-- name: "Drupal 7 - local development [sites/{{ project_name }}.localhost/settings.php]"
+- name: "Drupal 7 - local development [sites/{{ project_name }}.local/settings.php]"
   template:
     src: "drupal-template--d7--settings.j2"
-    dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.localhost/settings.php"
+    dest: "{{ project_local_base_path }}/{{ project_group }}/{{ project_name }}/{{ project_root }}/sites/{{ project_name }}.local/settings.php"
   when:
     - project_type == "drupal"
     - project_type_version == "d7"
