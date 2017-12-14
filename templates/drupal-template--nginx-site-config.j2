@@ -1,6 +1,6 @@
 server {
   listen 80;
-  server_name {{ project_name }}.local;
+  server_name {{ project_name }}.localhost;
   root {{ project_local_base_path | expanduser }}/{{ project_group }}/{{ project_name }}/{{ project_root }};
   access_log /usr/local/etc/nginx/logs/{{ project_name }}.access.log main;
 
@@ -81,7 +81,7 @@ server {
   ssl on;
   ssl_certificate /usr/local/ssl/certs/{{ project_name }}SelfSignedSSL.crt;
   ssl_certificate_key /usr/local/ssl/private/{{ project_name }}SelfSignedSSL.key;
-  server_name {{ project_name }}.local;
+  server_name {{ project_name }}.localhost;
 
   root {{ project_local_base_path | expanduser }}/{{ project_group }}/{{ project_name }}/{{ project_root }};
   access_log /usr/local/etc/nginx/logs/{{ project_name }}.access.log main;
