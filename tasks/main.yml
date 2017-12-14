@@ -67,9 +67,9 @@
 
 # project type specific tasks
 
-- include: drupal.yml
-- include: drupal7.yml
-- include: drupal8.yml
+- import_tasks: drupal.yml
+- import_tasks: drupal7.yml
+- import_tasks: drupal8.yml
 
 # when everything else is in place, add symlinks if any
 
